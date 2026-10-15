@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nomdor Somsa — Tandirdan issiq somsa</title>
+<meta name="description" content="Nomdor Somsa restorani — tandirda pishirilgan an'anaviy o'zbek somsasi. Menyu, buyurtma va manzil.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fbf6ee;
+    --surface:#ffffff;
+    --ink:#2b1d14;
+    --muted:#7a6656;
+    --brand:#c2541b;
+    --brand-dark:#9a3f10;
+    --gold:#e3a33b;
+    --line:#ecdfcd;
+    --dark:#1f150f;
+    --radius:18px;
+    --shadow:0 10px 30px rgba(80,40,10,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Nunito',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+  h1,h2,h3{font-family:'Playfair Display',Georgia,serif;line-height:1.15}
+  a{color:inherit;text-decoration:none}
+  img,svg{display:block;max-width:100%}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:999px;font-weight:700;border:2px solid transparent;cursor:pointer;transition:.2s;font-size:1rem;font-family:inherit}
+  .btn-primary{background:var(--brand);color:#fff}
+  .btn-primary:hover{background:var(--brand-dark);transform:translateY(-2px)}
+  .btn-ghost{border-color:currentColor}
+  .btn-ghost:hover{background:rgba(255,255,255,.12)}
+  .tag{display:inline-block;color:var(--brand);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.8rem;margin-bottom:10px}
+  section{padding:90px 0}
+  .section-head{text-align:center;max-width:620px;margin:0 auto 48px}
+  .section-head h2{font-size:clamp(2rem,4vw,2.8rem);margin-bottom:12px}
+  .section-head p{color:var(--muted)}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:50;background:rgba(251,246,238,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .logo{display:flex;align-items:center;gap:10px;font-family:'Playfair Display',serif;font-weight:800;font-size:1.45rem}
+  .logo span{color:var(--brand)}
+  .nav ul{display:flex;gap:30px;list-style:none;font-weight:600}
+  .nav ul a:hover{color:var(--brand)}
+  .nav .btn{padding:10px 20px}
+  .burger{display:none;background:none;border:0;cursor:pointer;padding:6px}
+  .burger span{display:block;width:26px;height:3px;background:var(--ink);margin:5px 0;border-radius:3px}
+
+  /* Hero */
+  .hero{background:radial-gradient(ellipse at 80% 20%,#3a2416 0%,var(--dark) 60%);color:#fff;padding:100px 0 110px;overflow:hidden}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+  .hero .tag{color:var(--gold)}
+  .hero h1{font-size:clamp(2.6rem,6vw,4.4rem);margin-bottom:20px}
+  .hero h1 em{color:var(--gold);font-style:normal}
+  .hero p{color:#e6d6c6;font-size:1.15rem;max-width:480px;margin-bottom:32px}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-stats{display:flex;gap:36px;margin-top:44px}
+  .hero-stats b{display:block;font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold)}
+  .hero-stats small{color:#cbb8a4}
+  .hero-art{position:relative;aspect-ratio:1}
+  .hero-art .glow{position:absolute;inset:8%;border-radius:50%;background:radial-gradient(circle,rgba(227,163,59,.35),transparent 70%)}
+  .hero-art svg{position:relative;width:100%;height:100%;animation:float 6s ease-in-out infinite}
+  @keyframes float{50%{transform:translateY(-12px)}}
+
+  /* About */
+  .about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .about-visual{background:linear-gradient(135deg,#f3dfc3,#e9c79a);border-radius:var(--radius);aspect-ratio:4/3;display:grid;place-items:center;box-shadow:var(--shadow)}
+  .about h2{font-size:clamp(2rem,4vw,2.6rem);margin-bottom:18px}
+  .about p{color:var(--muted);margin-bottom:16px}
+  .checks{list-style:none;display:grid;gap:10px;margin-top:20px}
+  .checks li{display:flex;gap:10px;align-items:center;font-weight:600}
+  .checks li::before{content:"✓";display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--brand);color:#fff;font-size:.8rem;flex-shrink:0}
+
+  /* Menu */
+  .menu{background:var(--surface)}
+  .filters{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:36px}
+  .filters button{padding:9px 20px;border-radius:999px;border:1.5px solid var(--line);background:var(--bg);font-family:inherit;font-weight:700;color:var(--muted);cursor:pointer;transition:.2s}
+  .filters button.active,.filters button:hover{background:var(--brand);border-color:var(--brand);color:#fff}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:24px}
+  .card{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.25s;display:flex;flex-direction:column}
+  .card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+  .card-img{height:160px;display:grid;place-items:center}
+  .card-body{padding:20px;display:flex;flex-direction:column;flex:1}
+  .card h3{font-size:1.3rem;margin-bottom:6px}
+  .card p{color:var(--muted);font-size:.95rem;flex:1}
+  .card-foot{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
+  .price{font-weight:800;font-size:1.15rem;color:var(--brand)}
+  .add{width:40px;height:40px;border-radius:50%;border:0;background:var(--ink);color:#fff;font-size:1.4rem;cursor:pointer;transition:.2s}
+  .add:hover{background:var(--brand)}
+  .badge{display:inline-block;background:var(--gold);color:var(--dark);font-size:.72rem;font-weight:800;padding:3px 10px;border-radius:999px;margin-bottom:8px;width:fit-content}
+  .hidden{display:none}
+
+  /* Features */
+  .features .grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .feature{background:var(--surface);padding:30px;border-radius:var(--radius);border:1px solid var(--line);text-align:center}
+  .feature .ico{font-size:2.4rem;margin-bottom:14px}
+  .feature h3{font-size:1.2rem;margin-bottom:8px}
+  .feature p{color:var(--muted);font-size:.95rem}
+
+  /* Reviews */
+  .reviews{background:var(--dark);color:#fff}
+  .reviews .section-head p{color:#cbb8a4}
+  .reviews .grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .review{background:#2c1f16;padding:28px;border-radius:var(--radius);border:1px solid #3d2c20}
+  .stars{color:var(--gold);letter-spacing:3px;margin-bottom:12px}
+  .review p{color:#e6d6c6;margin-bottom:16px;font-style:italic}
+  .review b{color:#fff}
+
+  /* Order */
+  .order .wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow)}
+  .panel h3{font-size:1.5rem;margin-bottom:16px}
+  .cart-list{list-style:none;margin-bottom:16px;min-height:60px}
+  .cart-list li{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line);gap:10px}
+  .qty{display:flex;align-items:center;gap:8px}
+  .qty button{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:var(--bg);cursor:pointer;font-weight:800}
+  .empty{color:var(--muted);text-align:center;padding:20px 0}
+  .total{display:flex;justify-content:space-between;font-size:1.25rem;font-weight:800;margin-top:6px}
+  form{display:grid;gap:14px}
+  label{font-weight:700;font-size:.9rem;display:grid;gap:6px}
+  input,textarea,select{font-family:inherit;font-size:1rem;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink)}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--brand)}
+  .msg{padding:12px;border-radius:12px;background:#e8f5e9;color:#2e7d32;font-weight:700;display:none}
+
+  /* Contact */
+  .contact .grid{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .info{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+  .info .ico{font-size:1.8rem;margin-bottom:10px}
+  .info h3{font-size:1.15rem;margin-bottom:6px}
+  .info p{color:var(--muted)}
+
+  footer{background:var(--dark);color:#cbb8a4;padding:40px 0;text-align:center}
+  footer .logo{justify-content:center;color:#fff;margin-bottom:10px}
+  .socials{display:flex;justify-content:center;gap:14px;margin:16px 0}
+  .socials a{width:42px;height:42px;border-radius:50%;background:#2c1f16;display:grid;place-items:center;font-weight:800;color:#fff;transition:.2s}
+  .socials a:hover{background:var(--brand)}
+
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--ink);color:#fff;padding:12px 22px;border-radius:999px;font-weight:700;transition:.3s;z-index:100;opacity:0}
+  .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+  @media (max-width:860px){
+    .nav ul{display:none;position:absolute;top:72px;left:0;right:0;background:var(--bg);flex-direction:column;padding:20px;gap:16px;border-bottom:1px solid var(--line)}
+    .nav ul.open{display:flex}
+    .nav .btn{display:none}
+    .burger{display:block}
+    .hero .wrap,.about .wrap,.order .wrap{grid-template-columns:1fr}
+    .hero-art{max-width:340px;margin:0 auto;order:-1}
+    .hero{padding:60px 0 80px}
+    section{padding:64px 0}
+    .hero-stats{gap:24px}
+  }
+</style>
+</head>
+<body>
+
+<!-- SVG somsa shabloni -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="dough" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f5c27a"/>
+      <stop offset=".6" stop-color="#d98a3d"/>
+      <stop offset="1" stop-color="#a95a1f"/>
+    </linearGradient>
+    <symbol id="somsa" viewBox="0 0 200 160">
+      <ellipse cx="100" cy="148" rx="80" ry="8" fill="rgba(0,0,0,.18)"/>
+      <path d="M20 135 L100 15 L180 135 Q100 155 20 135 Z" fill="url(#dough)" stroke="#8a4614" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M100 15 L100 140" stroke="#b8692a" stroke-width="2" opacity=".5"/>
+      <path d="M60 75 Q100 85 140 75" stroke="#b8692a" stroke-width="2" fill="none" opacity=".5"/>
+      <g fill="#3b2a1e">
+        <circle cx="85" cy="60" r="2.4"/><circle cx="110" cy="70" r="2.4"/><circle cx="95" cy="95" r="2.4"/>
+        <circle cx="125" cy="105" r="2.4"/><circle cx="70" cy="110" r="2.4"/><circle cx="105" cy="120" r="2.4"/>
+        <circle cx="140" cy="122" r="2.4"/><circle cx="58" cy="125" r="2.4"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo">
+      <svg width="34" height="28"><use href="#somsa"/></svg>
+      Nomdor <span>Somsa</span>
+    </a>
+    <ul id="menuNav">
+      <li><a href="#about">Biz haqimizda</a></li>
+      <li><a href="#menu">Menyu</a></li>
+      <li><a href="#reviews">Fikrlar</a></li>
+      <li><a href="#order">Buyurtma</a></li>
+      <li><a href="#contact">Aloqa</a></li>
+    </ul>
+    <a href="#order" class="btn btn-primary">Buyurtma berish</a>
+    <button class="burger" aria-label="Menyu" onclick="document.getElementById('menuNav').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="tag">Tandirdan to'g'ri dasturxonga</span>
+      <h1>Shahardagi eng <em>nomdor</em> somsa</h1>
+      <p>Qo'lda yoyilgan qatlama xamir, yangi go'sht va haqiqiy tandir olovi. Har kuni ertalabdan issiq-issiq somsa sizni kutmoqda.</p>
+      <div class="hero-actions">
+        <a href="#menu" class="btn btn-primary">Menyuni ko'rish →</a>
+        <a href="tel:+998900000000" class="btn btn-ghost">📞 Qo'ng'iroq qilish</a>
+      </div>
+      <div class="hero-stats">
+        <div><b>15+</b><small>yillik tajriba</small></div>
+        <div><b>10</b><small>xil somsa</small></div>
+        <div><b>4.9★</b><small>mijozlar bahosi</small></div>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="glow"></div>
+      <svg viewBox="0 0 200 160"><use href="#somsa"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="about-visual">
+      <svg viewBox="0 0 240 200" width="70%">
+        <ellipse cx="120" cy="185" rx="100" ry="10" fill="rgba(0,0,0,.15)"/>
+        <path d="M30 180 Q20 60 120 30 Q220 60 210 180 Z" fill="#b7724a" stroke="#7a4527" stroke-width="4"/>
+        <ellipse cx="120" cy="45" rx="45" ry="14" fill="#2b1d14"/>
+        <path d="M95 40 Q100 20 110 35 Q118 10 128 32 Q138 18 145 40" fill="#e3a33b"/>
+        <path d="M60 120 Q120 105 180 120" stroke="#7a4527" stroke-width="3" fill="none" opacity=".5"/>
+        <path d="M50 150 Q120 135 190 150" stroke="#7a4527" stroke-width="3" fill="none" opacity=".5"/>
+      </svg>
+    </div>
+    <div>
+      <span class="tag">Bizning hikoyamiz</span>
+      <h2>Ota-bobolar retsepti, bugungi sifat</h2>
+      <p>"Nomdor Somsa" oddiy oilaviy tandirdan boshlangan. Bugun ham biz o'sha an'anaga sodiqmiz: xamirni har kuni qo'lda tayyorlaymiz, go'shtni o'zimiz tanlaymiz va somsani faqat loy tandirda pishiramiz.</p>
+      <p>Bizning maqsadimiz — har bir mijoz uyidagidek mazali, toza va to'yimli taom yeyishi.</p>
+      <ul class="checks">
+        <li>Har kuni yangi, halol go'sht</li>
+        <li>Qo'lda yoyilgan qatlama xamir</li>
+        <li>Haqiqiy loy tandirda pishiriladi</li>
+        <li>Toza va qulay oilaviy muhit</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">Menyu</span>
+      <h2>Bugun nima yeymiz?</h2>
+      <p>Tandirdan endigina uzilgan somsalar, yengil salatlar va issiq choy.</p>
+    </div>
+    <div class="filters">
+      <button class="active" data-f="all">Barchasi</button>
+      <button data-f="somsa">Somsalar</button>
+      <button data-f="salat">Salatlar</button>
+      <button data-f="ichimlik">Ichimliklar</button>
+    </div>
+    <div class="grid" id="menuGrid"></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">Nega aynan biz?</span>
+      <h2>Ta'm — bizning nomimiz</h2>
+    </div>
+    <div class="grid">
+      <div class="feature"><div class="ico">🔥</div><h3>Loy tandir</h3><p>Somsa faqat an'anaviy tandirda pishadi — shuning uchun qarsildoq va xushbo'y.</p></div>
+      <div class="feature"><div class="ico">🥩</div><h3>Yangi mahsulot</h3><p>Go'sht va sabzavotlar har kuni ertalab bozordan keltiriladi.</p></div>
+      <div class="feature"><div class="ico">🛵</div><h3>Tez yetkazish</h3><p>Buyurtmangiz issiqligicha 30–40 daqiqada eshigingizda.</p></div>
+      <div class="feature"><div class="ico">👨‍👩‍👧</div><h3>Oilaviy muhit</h3><p>Keng zal, bolalar uchun qulay joy va samimiy xizmat.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag" style="color:var(--gold)">Mijozlar fikri</span>
+      <h2>Ular allaqachon tatib ko'rishgan</h2>
+      <p>Har kuni yuzlab mijozlar bizni tanlaydi.</p>
+    </div>
+    <div class="grid">
+      <div class="review"><div class="stars">★★★★★</div><p>Tandir somsasi xuddi buvimnikidek! Xamiri yupqa, go'shti sersuv. Har hafta kelamiz.</p><b>Mijoz fikri namunasi</b></div>
+      <div class="review"><div class="stars">★★★★★</div><p>Yetkazib berish juda tez, somsa issiq holda keldi. Qovoqli somsani albatta sinab ko'ring.</p><b>Mijoz fikri namunasi</b></div>
+      <div class="review"><div class="stars">★★★★★</div><p>Toza, shinam joy, xodimlar xushmuomala. Oila bilan nonushta uchun ajoyib.</p><b>Mijoz fikri namunasi</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER -->
+<section class="order" id="order">
+  <div class="wrap">
+    <div class="panel">
+      <h3>🧺 Savatingiz</h3>
+      <ul class="cart-list" id="cartList"></ul>
+      <div class="total"><span>Jami:</span><span id="cartTotal">0 so'm</span></div>
+    </div>
+    <div class="panel">
+      <h3>Buyurtma berish</h3>
+      <form id="orderForm">
+        <label>Ismingiz<input required name="name" placeholder="Ismingizni kiriting"></label>
+        <label>Telefon raqam<input required name="phone" type="tel" placeholder="+998 __ ___ __ __"></label>
+        <label>Turi
+          <select name="type">
+            <option>Yetkazib berish</option>
+            <option>Olib ketish</option>
+            <option>Joy band qilish</option>
+          </select>
+        </label>
+        <label>Manzil yoki izoh<textarea name="note" rows="3" placeholder="Manzil, kirish, qavat..."></textarea></label>
+        <button class="btn btn-primary" type="submit">Buyurtmani yuborish</button>
+        <div class="msg" id="formMsg"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">Aloqa</span>
+      <h2>Bizni toping</h2>
+    </div>
+    <div class="grid">
+      <div class="info"><div class="ico">📍</div><h3>Manzil</h3><p>Shahar, ko'cha nomi, uy raqami<br>(mo'ljal: ...)</p></div>
+      <div class="info"><div class="ico">🕗</div><h3>Ish vaqti</h3><p>Har kuni: 07:00 – 22:00<br>Issiq somsa: 07:30 dan</p></div>
+      <div class="info"><div class="ico">📞</div><h3>Telefon</h3><p><a href="tel:+998900000000">+998 90 000 00 00</a><br>Telegram: @nomdorsomsa</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="logo"><svg width="34" height="28"><use href="#somsa"/></svg> Nomdor <span>Somsa</span></div>
+    <p>Tandirdan issiq, yurakdan samimiy.</p>
+    <div class="socials">
+      <a href="#" aria-label="Telegram">TG</a>
+      <a href="#" aria-label="Instagram">IG</a>
+      <a href="#" aria-label="Facebook">FB</a>
+    </div>
+    <small>© <span id="year"></span> Nomdor Somsa. Barcha huquqlar himoyalangan.</small>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const items = [
+    {id:1, cat:'somsa', name:"Tandir somsa", desc:"Mol go'shti va dumba, qatlama xamir. Bizning eng mashhurimiz.", price:12000, badge:"Xit", color:"#f3dfc3"},
+    {id:2, cat:'somsa', name:"Qo'y go'shtli somsa", desc:"Mayda to'g'ralgan qo'y go'shti, piyoz va ziravorlar.", price:14000, color:"#f1d6b8"},
+    {id:3, cat:'somsa', name:"Qovoqli somsa", desc:"Shirin qovoq, piyoz va biroz dumba. Kuz-qish faslining yulduzi.", price:9000, badge:"Mavsumiy", color:"#f6d7a6"},
+    {id:4, cat:'somsa', name:"Ko'katli somsa", desc:"Ismaloq, shivit, ko'k piyoz — yengil va xushbo'y.", price:8000, color:"#dfe8c8"},
+    {id:5, cat:'somsa', name:"Tovuqli somsa", desc:"Tovuq go'shti, piyoz va qora murch.", price:10000, color:"#f5e2c4"},
+    {id:6, cat:'somsa', name:"Kartoshkali somsa", desc:"Yumshoq kartoshka va qovurilgan piyoz.", price:7000, color:"#efe0c0"},
+    {id:7, cat:'salat', name:"Achchiq-chuchuk", desc:"Pomidor, piyoz va achchiq qalampir.", price:15000, color:"#f7cfc4"},
+    {id:8, cat:'salat', name:"Suzma salat", desc:"Bodring, ko'kat va uy suzmasi.", price:16000, color:"#e6efe0"},
+    {id:9, cat:'ichimlik', name:"Ko'k choy (choynak)", desc:"Issiq ko'k choy — somsaning eng yaxshi hamrohi.", price:5000, color:"#dcebd6"},
+    {id:10, cat:'ichimlik', name:"Qora choy limon bilan", desc:"Limon va shakar bilan.", price:6000, color:"#f0dcc4"},
+    {id:11, cat:'ichimlik', name:"Ayron", desc:"Sovuq, yangi tayyorlangan ayron.", price:7000, color:"#eef1f2"}
+  ];
+  const icons = {
+    somsa:'<svg viewBox="0 0 200 160" width="130"><use href="#somsa"/></svg>',
+    salat:'<div style="font-size:4rem">🥗</div>',
+    ichimlik:'<div style="font-size:4rem">🫖</div>'
+  };
+  const fmt = n => n.toLocaleString('ru-RU').replace(/,/g,' ') + " so'm";
+  const grid = document.getElementById('menuGrid');
+  grid.innerHTML = items.map(i => `
+    <div class="card" data-cat="${i.cat}">
+      <div class="card-img" style="background:${i.color}">${icons[i.cat]}</div>
+      <div class="card-body">
+        ${i.badge ? `<span class="badge">${i.badge}</span>` : ''}
+        <h3>${i.name}</h3>
+        <p>${i.desc}</p>
+        <div class="card-foot">
+          <span class="price">${fmt(i.price)}</span>
+          <button class="add" onclick="addToCart(${i.id})" aria-label="Savatga qo'shish">+</button>
+        </div>
+      </div>
+    </div>`).join('');
+
+  document.querySelectorAll('.filters button').forEach(b => b.onclick = () => {
+    document.querySelectorAll('.filters button').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    document.querySelectorAll('.card').forEach(c =>
+      c.classList.toggle('hidden', b.dataset.f !== 'all' && c.dataset.cat !== b.dataset.f));
+  });
+
+  const cart = {};
+  function addToCart(id){ cart[id] = (cart[id]||0) + 1; renderCart(); toast(items.find(i=>i.id===id).name + " savatga qo'shildi"); }
+  function changeQty(id,d){ cart[id] += d; if(cart[id] <= 0) delete cart[id]; renderCart(); }
+  function renderCart(){
+    const list = document.getElementById('cartList');
+    const ids = Object.keys(cart);
+    if(!ids.length){ list.innerHTML = '<li class="empty">Savat bo\'sh — menyudan tanlang 🙂</li>'; document.getElementById('cartTotal').textContent = fmt(0); return; }
+    let total = 0;
+    list.innerHTML = ids.map(id => {
+      const it = items.find(i => i.id == id); const sum = it.price * cart[id]; total += sum;
+      return `<li><span>${it.name}</span><span class="qty">
+        <button onclick="changeQty(${id},-1)">−</button>${cart[id]}<button onclick="changeQty(${id},1)">+</button>
+        <b style="min-width:90px;text-align:right">${fmt(sum)}</b></span></li>`;
+    }).join('');
+    document.getElementById('cartTotal').textContent = fmt(total);
+  }
+  renderCart();
+
+  let tt;
+  function toast(t){ const el = document.getElementById('toast'); el.textContent = t; el.classList.add('show'); clearTimeout(tt); tt = setTimeout(()=>el.classList.remove('show'), 1800); }
+
+  document.getElementById('orderForm').onsubmit = e => {
+    e.preventDefault();
+    const name = e.target.name.value.trim();
+    const msg = document.getElementById('formMsg');
+    msg.style.display = 'block';
+    msg.textContent = `Rahmat, ${name}! Buyurtmangiz qabul qilindi. Tez orada siz bilan bog'lanamiz.`;
+    e.target.reset();
+  };
+
+  document.querySelectorAll('#menuNav a').forEach(a => a.onclick = () => document.getElementById('menuNav').classList.remove('open'));
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

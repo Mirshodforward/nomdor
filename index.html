@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nomdor Somsa — Tandirdan issiq somsa</title>
+<meta name="description" content="Nomdor Somsa — tandirda pishirilgan an'anaviy o'zbek somsasi. Menyu, buyurtma va manzil.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --bg:#110b07;
+    --bg2:#1a110b;
+    --glass:rgba(255,236,214,.05);
+    --glass-b:rgba(255,220,180,.12);
+    --ink:#f7ece1;
+    --muted:#b8a491;
+    --gold:#f4b544;
+    --orange:#ea6a28;
+    --red:#c2361b;
+    --grad:linear-gradient(135deg,#f4b544 0%,#ea6a28 55%,#c2361b 100%);
+    --radius:22px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Manrope',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden}
+  h1,h2,h3{font-family:'Unbounded',sans-serif;line-height:1.12;letter-spacing:-.01em}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  /* Fon bloklari */
+  .blob{position:fixed;border-radius:50%;filter:blur(90px);opacity:.35;z-index:-1;pointer-events:none;animation:drift 18s ease-in-out infinite alternate}
+  .blob.b1{width:520px;height:520px;background:#ea6a28;top:-160px;right:-120px}
+  .blob.b2{width:420px;height:420px;background:#7a2a10;bottom:-120px;left:-140px;animation-delay:-6s}
+  @keyframes drift{to{transform:translate(-60px,80px) scale(1.15)}}
+
+  /* Tugmalar */
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:15px 28px;border-radius:999px;font-weight:800;font-family:inherit;font-size:1rem;cursor:pointer;border:1px solid transparent;transition:transform .25s,box-shadow .25s,background .25s;position:relative}
+  .btn-primary{background:var(--grad);color:#fff;box-shadow:0 10px 30px -8px rgba(234,106,40,.7)}
+  .btn-primary:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 18px 40px -10px rgba(234,106,40,.9)}
+  .btn-ghost{border-color:var(--glass-b);background:var(--glass);backdrop-filter:blur(10px)}
+  .btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+  .tag{display:inline-flex;align-items:center;gap:8px;color:var(--gold);font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:.78rem;margin-bottom:14px;padding:7px 14px;border:1px solid rgba(244,181,68,.3);border-radius:999px;background:rgba(244,181,68,.07)}
+  section{padding:110px 0;position:relative}
+  .section-head{text-align:center;max-width:640px;margin:0 auto 56px}
+  .section-head h2{font-size:clamp(1.9rem,4.2vw,3rem);margin-bottom:14px}
+  .section-head p{color:var(--muted)}
+
+  /* Header */
+  header{position:fixed;top:14px;left:0;right:0;z-index:60}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:66px;padding:0 10px 0 22px;border-radius:999px;background:rgba(22,14,9,.65);backdrop-filter:blur(16px);border:1px solid var(--glass-b)}
+  .logo{display:flex;align-items:center;gap:10px;font-family:'Unbounded';font-weight:900;font-size:1.15rem}
+  .logo i{width:38px;height:38px;border-radius:12px;background:var(--grad);display:grid;place-items:center;color:#fff;font-size:1rem;transform:rotate(-8deg)}
+  .nav ul{display:flex;gap:30px;list-style:none;font-weight:700;font-size:.95rem}
+  .nav ul a{color:var(--muted);transition:.2s}
+  .nav ul a:hover{color:var(--ink)}
+  .nav .btn{padding:11px 20px}
+  .burger{display:none;width:46px;height:46px;border-radius:50%;border:1px solid var(--glass-b);background:var(--glass);color:var(--ink);font-size:1.1rem;cursor:pointer}
+
+  /* Hero */
+  .hero{min-height:100vh;display:flex;align-items:center;padding:130px 0 80px}
+  .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}
+  .hero h1{font-size:clamp(2.5rem,6.2vw,5rem);font-weight:900;margin-bottom:22px}
+  .hero p{color:var(--muted);font-size:1.15rem;max-width:500px;margin-bottom:34px}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+  .stats{display:flex;gap:16px;margin-top:46px;flex-wrap:wrap}
+  .stat{padding:16px 20px;border-radius:18px;background:var(--glass);border:1px solid var(--glass-b);backdrop-filter:blur(10px);min-width:130px}
+  .stat b{display:block;font-family:'Unbounded';font-size:1.6rem}
+  .stat small{color:var(--muted);font-weight:600}
+  .stage{position:relative;aspect-ratio:1;width:100%}
+  #somsa3d{position:absolute;inset:0;width:100%;height:100%}
+  .stage .ring{position:absolute;inset:12%;border-radius:50%;border:1px dashed rgba(244,181,68,.25);animation:spin 40s linear infinite}
+  .stage .ring.r2{inset:2%;border-style:solid;border-color:rgba(234,106,40,.12);animation-duration:60s;animation-direction:reverse}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .chip{position:absolute;display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:16px;background:rgba(26,17,11,.75);backdrop-filter:blur(12px);border:1px solid var(--glass-b);font-weight:700;font-size:.9rem;animation:bob 5s ease-in-out infinite;z-index:2}
+  .chip i{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--grad);color:#fff}
+  .chip.c1{top:14%;left:-2%}
+  .chip.c2{bottom:16%;right:-2%;animation-delay:-2.5s}
+  @keyframes bob{50%{transform:translateY(-14px)}}
+  .scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);color:var(--muted);font-size:1.3rem;animation:bob 2.2s ease-in-out infinite}
+
+  /* Scroll reveal (3D) */
+  .reveal{opacity:0;transform:perspective(1000px) rotateX(22deg) translateY(60px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* About */
+  .about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+  .layers{position:relative;aspect-ratio:1;perspective:1100px}
+  .layers .stack{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(55deg) rotateZ(-35deg);animation:stackspin 14s ease-in-out infinite alternate}
+  @keyframes stackspin{to{transform:rotateX(50deg) rotateZ(25deg)}}
+  .layer{position:absolute;inset:14%;border-radius:28px;display:grid;place-items:center;font-family:'Unbounded';font-weight:700;color:#fff;font-size:.95rem;border:1px solid rgba(255,255,255,.15);box-shadow:0 30px 60px rgba(0,0,0,.45)}
+  .layer span{display:flex;align-items:center;gap:10px;transform:rotateZ(35deg)}
+  .layer.l1{background:linear-gradient(135deg,#5a2a12,#3a1a0a);transform:translateZ(0)}
+  .layer.l2{background:linear-gradient(135deg,#a8481b,#7a2f10);transform:translateZ(60px)}
+  .layer.l3{background:linear-gradient(135deg,#e07a2c,#b9501a);transform:translateZ(120px)}
+  .layer.l4{background:var(--grad);transform:translateZ(180px)}
+  .about h2{font-size:clamp(1.9rem,4vw,2.8rem);margin-bottom:18px}
+  .about p{color:var(--muted);margin-bottom:16px}
+  .checks{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
+  .checks li{display:flex;gap:12px;align-items:center;font-weight:700;padding:14px;border-radius:16px;background:var(--glass);border:1px solid var(--glass-b);font-size:.93rem}
+  .checks i{color:var(--gold);font-size:1.1rem;width:22px;text-align:center}
+
+  /* Menu */
+  .filters{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:42px}
+  .filters button{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;border:1px solid var(--glass-b);background:var(--glass);font-family:inherit;font-weight:800;color:var(--muted);cursor:pointer;transition:.25s}
+  .filters button.active,.filters button:hover{background:var(--grad);border-color:transparent;color:#fff}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:26px;perspective:1400px}
+  .card{position:relative;border-radius:var(--radius);background:linear-gradient(160deg,rgba(255,236,214,.08),rgba(255,236,214,.02));border:1px solid var(--glass-b);transform-style:preserve-3d;transition:transform .15s ease-out,box-shadow .3s;will-change:transform}
+  .card:hover{box-shadow:0 30px 60px -20px rgba(234,106,40,.45)}
+  .card .glare{position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(circle at var(--gx,50%) var(--gy,0%),rgba(255,255,255,.14),transparent 55%);opacity:0;transition:opacity .3s}
+  .card:hover .glare{opacity:1}
+  .card-img{height:170px;display:grid;place-items:center;transform-style:preserve-3d;position:relative}
+  .card-img .disc{position:absolute;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(244,181,68,.28),transparent 70%);transform:translateZ(20px)}
+  .card-img .obj{transform:translateZ(70px);transition:transform .8s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d}
+  .card:hover .obj{transform:translateZ(90px) rotateY(360deg)}
+  .card-img .obj i{font-size:4.2rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 12px 18px rgba(0,0,0,.45))}
+  .card-img .obj svg{width:120px;filter:drop-shadow(0 14px 18px rgba(0,0,0,.5))}
+  .card-body{padding:4px 22px 22px;transform:translateZ(40px)}
+  .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(244,181,68,.15);color:var(--gold);font-size:.72rem;font-weight:800;padding:4px 10px;border-radius:999px;margin-bottom:10px;border:1px solid rgba(244,181,68,.3)}
+  .card h3{font-size:1.08rem;margin-bottom:6px}
+  .card p{color:var(--muted);font-size:.92rem;min-height:44px}
+  .card-foot{display:flex;justify-content:space-between;align-items:center;margin-top:18px}
+  .price{font-family:'Unbounded';font-weight:700;font-size:1.05rem}
+  .add{width:46px;height:46px;border-radius:14px;border:0;background:var(--grad);color:#fff;font-size:1rem;cursor:pointer;transition:.25s;box-shadow:0 8px 20px -6px rgba(234,106,40,.8)}
+  .add:hover{transform:rotate(90deg) scale(1.08)}
+  .hidden{display:none}
+
+  /* Flip kartalar */
+  .flip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:24px}
+  .flip{perspective:1000px;height:250px;cursor:pointer}
+  .flip-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+  .flip:hover .flip-inner,.flip.on .flip-inner{transform:rotateY(180deg)}
+  .face{position:absolute;inset:0;border-radius:var(--radius);backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:28px;border:1px solid var(--glass-b)}
+  .face.front{background:linear-gradient(160deg,rgba(255,236,214,.08),rgba(255,236,214,.02))}
+  .face.front i{font-size:2.6rem;width:86px;height:86px;border-radius:26px;display:grid;place-items:center;background:var(--grad);color:#fff;margin-bottom:20px;box-shadow:0 16px 30px -10px rgba(234,106,40,.8);transform:rotate(-6deg)}
+  .face.front h3{font-size:1.1rem}
+  .face.front small{color:var(--muted);margin-top:8px;font-weight:600}
+  .face.back{background:var(--grad);transform:rotateY(180deg);color:#fff}
+  .face.back i{font-size:1.8rem;margin-bottom:14px;opacity:.9}
+  .face.back p{font-weight:600}
+
+  /* 3D karusel */
+  .reviews{overflow:hidden}
+  .carousel{position:relative;height:340px;perspective:1300px;margin-top:10px}
+  .ring3d{position:absolute;top:0;left:50%;width:300px;height:100%;margin-left:-150px;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+  .review{position:absolute;inset:20px 0;padding:28px;border-radius:var(--radius);background:rgba(30,20,13,.9);border:1px solid var(--glass-b);backface-visibility:hidden;display:flex;flex-direction:column}
+  .review .q{font-size:1.6rem;color:var(--orange);margin-bottom:10px}
+  .review p{color:#e8d8c8;flex:1;font-size:.96rem}
+  .review .who{display:flex;align-items:center;gap:12px;margin-top:16px}
+  .review .ava{width:42px;height:42px;border-radius:50%;background:var(--grad);display:grid;place-items:center;color:#fff}
+  .review .stars{color:var(--gold);font-size:.8rem;letter-spacing:2px}
+  .car-ctrl{display:flex;justify-content:center;gap:12px;margin-top:20px}
+  .car-ctrl button{width:52px;height:52px;border-radius:50%;border:1px solid var(--glass-b);background:var(--glass);color:var(--ink);cursor:pointer;font-size:1rem;transition:.25s}
+  .car-ctrl button:hover{background:var(--grad);border-color:transparent}
+
+  /* Buyurtma */
+  .order .wrap{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+  .panel{background:linear-gradient(160deg,rgba(255,236,214,.07),rgba(255,236,214,.02));border:1px solid var(--glass-b);border-radius:var(--radius);padding:32px;backdrop-filter:blur(10px)}
+  .panel h3{font-size:1.3rem;margin-bottom:20px;display:flex;align-items:center;gap:12px}
+  .panel h3 i{color:var(--gold)}
+  .cart-list{list-style:none;margin-bottom:18px;min-height:70px}
+  .cart-list li{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px dashed var(--glass-b);gap:10px;font-weight:600}
+  .qty{display:flex;align-items:center;gap:10px}
+  .qty button{width:30px;height:30px;border-radius:10px;border:1px solid var(--glass-b);background:var(--glass);color:var(--ink);cursor:pointer;font-size:.75rem}
+  .qty button:hover{border-color:var(--gold);color:var(--gold)}
+  .empty{color:var(--muted);text-align:center;padding:24px 0;display:block!important}
+  .empty i{display:block;font-size:2rem;margin-bottom:8px;opacity:.5}
+  .total{display:flex;justify-content:space-between;font-family:'Unbounded';font-size:1.15rem;font-weight:700;margin-top:8px}
+  form{display:grid;gap:16px}
+  .field{position:relative}
+  .field i{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+  .field.ta i{top:20px;transform:none}
+  input,textarea,select{width:100%;font-family:inherit;font-size:1rem;padding:14px 16px 14px 46px;border:1px solid var(--glass-b);border-radius:14px;background:rgba(0,0,0,.25);color:var(--ink);transition:.2s}
+  select option{background:var(--bg2)}
+  input::placeholder,textarea::placeholder{color:#8a7766}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px rgba(244,181,68,.12)}
+  .msg{padding:14px;border-radius:14px;background:rgba(76,175,80,.12);border:1px solid rgba(76,175,80,.35);color:#9be59f;font-weight:700;display:none;gap:10px;align-items:center}
+
+  /* Aloqa */
+  .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;perspective:1200px}
+  .info{padding:30px;border-radius:var(--radius);background:linear-gradient(160deg,rgba(255,236,214,.07),rgba(255,236,214,.02));border:1px solid var(--glass-b);transform-style:preserve-3d;transition:transform .15s ease-out}
+  .info .ic{width:58px;height:58px;border-radius:18px;background:var(--grad);display:grid;place-items:center;color:#fff;font-size:1.4rem;margin-bottom:18px;transform:translateZ(40px)}
+  .info h3{font-size:1.05rem;margin-bottom:8px;transform:translateZ(25px)}
+  .info p{color:var(--muted);transform:translateZ(15px)}
+  .info a:hover{color:var(--gold)}
+
+  footer{border-top:1px solid var(--glass-b);padding:46px 0;text-align:center;color:var(--muted)}
+  footer .logo{justify-content:center;color:var(--ink);margin-bottom:12px}
+  .socials{display:flex;justify-content:center;gap:12px;margin:22px 0}
+  .socials a{width:48px;height:48px;border-radius:16px;background:var(--glass);border:1px solid var(--glass-b);display:grid;place-items:center;font-size:1.2rem;color:var(--ink);transition:.3s}
+  .socials a:hover{background:var(--grad);transform:translateY(-4px) rotate(-8deg);border-color:transparent}
+
+  /* Suzuvchi savat */
+  .fab{position:fixed;right:22px;bottom:22px;z-index:70;width:62px;height:62px;border-radius:20px;border:0;background:var(--grad);color:#fff;font-size:1.35rem;cursor:pointer;box-shadow:0 14px 30px -8px rgba(234,106,40,.9);transition:.3s}
+  .fab:hover{transform:translateY(-4px) rotate(-6deg)}
+  .fab .count{position:absolute;top:-6px;right:-6px;min-width:24px;height:24px;padding:0 6px;border-radius:999px;background:#fff;color:var(--red);font-size:.78rem;font-weight:800;display:grid;place-items:center}
+  .fab.bump{animation:bump .5s}
+  @keyframes bump{30%{transform:scale(1.25) rotate(-12deg)}}
+
+  .toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(40px) rotateX(60deg);background:rgba(30,20,13,.95);border:1px solid var(--glass-b);color:#fff;padding:13px 22px;border-radius:999px;font-weight:700;transition:.4s;z-index:100;opacity:0;display:flex;gap:10px;align-items:center;white-space:nowrap}
+  .toast i{color:var(--gold)}
+  .toast.show{transform:translateX(-50%) translateY(0) rotateX(0);opacity:1}
+
+  @media (max-width:900px){
+    .nav ul{display:none;position:absolute;top:76px;left:20px;right:20px;background:rgba(22,14,9,.96);flex-direction:column;padding:22px;gap:16px;border-radius:22px;border:1px solid var(--glass-b)}
+    .nav ul.open{display:flex}
+    .nav .btn{display:none}
+    .burger{display:block}
+    .hero .wrap,.about .wrap,.order .wrap{grid-template-columns:1fr}
+    .stage{max-width:420px;margin:0 auto;order:-1}
+    .hero{padding-top:110px;min-height:auto}
+    section{padding:76px 0}
+    .chip{font-size:.8rem;padding:9px 12px}
+    .layers{max-width:380px;margin:0 auto}
+    .checks{grid-template-columns:1fr}
+    .scroll-hint{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="blob b1"></div>
+<div class="blob b2"></div>
+
+<!-- Somsa SVG (kartalar uchun) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="dough" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd48a"/><stop offset=".55" stop-color="#e08a3a"/><stop offset="1" stop-color="#9c4d17"/>
+    </linearGradient>
+    <radialGradient id="shine" cx=".4" cy=".35" r=".5"><stop offset="0" stop-color="#fff" stop-opacity=".45"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <symbol id="somsa" viewBox="0 0 200 170">
+      <path d="M22 140 Q14 132 22 120 L88 22 Q100 6 112 22 L178 120 Q186 132 178 140 Q100 160 22 140 Z" fill="url(#dough)" stroke="#7a3a10" stroke-width="2.5"/>
+      <path d="M22 140 Q14 132 22 120 L88 22 Q100 6 112 22 L178 120 Q186 132 178 140 Q100 160 22 140 Z" fill="url(#shine)"/>
+      <g fill="#2a1d14"><circle cx="90" cy="60" r="2.6"/><circle cx="112" cy="72" r="2.6"/><circle cx="96" cy="96" r="2.6"/><circle cx="128" cy="106" r="2.6"/><circle cx="70" cy="112" r="2.6"/><circle cx="104" cy="124" r="2.6"/><circle cx="146" cy="128" r="2.6"/><circle cx="56" cy="130" r="2.6"/></g>
+      <g fill="#fff3d6"><ellipse cx="102" cy="48" rx="2.4" ry="1.4"/><ellipse cx="80" cy="86" rx="2.4" ry="1.4"/><ellipse cx="118" cy="92" rx="2.4" ry="1.4"/><ellipse cx="88" cy="128" rx="2.4" ry="1.4"/><ellipse cx="132" cy="122" rx="2.4" ry="1.4"/></g>
+    </symbol>
+  </defs>
+</svg>
+
+<header>
+  <div class="wrap">
+    <nav class="nav">
+      <a href="#" class="logo"><i class="fa-solid fa-fire-flame-curved"></i> Nomdor <span class="grad-text">Somsa</span></a>
+      <ul id="menuNav">
+        <li><a href="#about">Biz haqimizda</a></li>
+        <li><a href="#menu">Menyu</a></li>
+        <li><a href="#features">Afzalliklar</a></li>
+        <li><a href="#reviews">Fikrlar</a></li>
+        <li><a href="#contact">Aloqa</a></li>
+      </ul>
+      <a href="#order" class="btn btn-primary"><i class="fa-solid fa-bag-shopping"></i> Buyurtma</a>
+      <button class="burger" aria-label="Menyu" id="burger"><i class="fa-solid fa-bars"></i></button>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="tag"><i class="fa-solid fa-fire"></i> Tandirdan to'g'ri dasturxonga</span>
+      <h1>Shahardagi eng <span class="grad-text">nomdor</span> somsa</h1>
+      <p>Qo'lda yoyilgan qatlama xamir, yangi go'sht va haqiqiy loy tandir olovi. Har kuni ertalabdan issiq-issiq somsa sizni kutmoqda.</p>
+      <div class="hero-actions">
+        <a href="#menu" class="btn btn-primary"><i class="fa-solid fa-utensils"></i> Menyuni ko'rish</a>
+        <a href="tel:+998900000000" class="btn btn-ghost"><i class="fa-solid fa-phone"></i> Qo'ng'iroq</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><b class="grad-text" data-count="15">0</b><small>yillik tajriba</small></div>
+        <div class="stat"><b class="grad-text" data-count="11">0</b><small>xil taom</small></div>
+        <div class="stat"><b class="grad-text">4.9</b><small><i class="fa-solid fa-star" style="color:var(--gold)"></i> baho</small></div>
+      </div>
+    </div>
+    <div class="stage" id="stage">
+      <div class="ring"></div><div class="ring r2"></div>
+      <canvas id="somsa3d" aria-label="Aylanuvchi 3D somsa"></canvas>
+      <div class="chip c1"><i class="fa-solid fa-temperature-high"></i> Issiq-issiq, hozirgina!</div>
+      <div class="chip c2"><i class="fa-solid fa-truck-fast"></i> 30 daqiqada yetkazamiz</div>
+    </div>
+  </div>
+  <a href="#about" class="scroll-hint" aria-label="Pastga"><i class="fa-solid fa-chevron-down"></i></a>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="layers reveal">
+      <div class="stack">
+        <div class="layer l1"><span><i class="fa-solid fa-wheat-awn"></i> Xamir</span></div>
+        <div class="layer l2"><span><i class="fa-solid fa-drumstick-bite"></i> Go'sht</span></div>
+        <div class="layer l3"><span><i class="fa-solid fa-seedling"></i> Ziravor</span></div>
+        <div class="layer l4"><span><i class="fa-solid fa-fire"></i> Tandir</span></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <span class="tag"><i class="fa-solid fa-book-open"></i> Bizning hikoyamiz</span>
+      <h2>Ota-bobolar retsepti, <span class="grad-text">bugungi sifat</span></h2>
+      <p>"Nomdor Somsa" oddiy oilaviy tandirdan boshlangan. Bugun ham biz o'sha an'anaga sodiqmiz: xamirni har kuni qo'lda tayyorlaymiz, go'shtni o'zimiz tanlaymiz va somsani faqat loy tandirda pishiramiz.</p>
+      <p>Maqsadimiz — har bir mijoz uyidagidek mazali, toza va to'yimli taom yeyishi.</p>
+      <ul class="checks">
+        <li><i class="fa-solid fa-certificate"></i> Halol go'sht</li>
+        <li><i class="fa-solid fa-hand-sparkles"></i> Qo'lda tayyorlanadi</li>
+        <li><i class="fa-solid fa-fire-burner"></i> Loy tandir</li>
+        <li><i class="fa-solid fa-people-roof"></i> Oilaviy muhit</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="tag"><i class="fa-solid fa-book-open-reader"></i> Menyu</span>
+      <h2>Bugun nima <span class="grad-text">yeymiz?</span></h2>
+      <p>Tandirdan endigina uzilgan somsalar, yengil salatlar va issiq choy.</p>
+    </div>
+    <div class="filters reveal">
+      <button class="active" data-f="all"><i class="fa-solid fa-border-all"></i> Barchasi</button>
+      <button data-f="somsa"><i class="fa-solid fa-fire"></i> Somsalar</button>
+      <button data-f="salat"><i class="fa-solid fa-leaf"></i> Salatlar</button>
+      <button data-f="ichimlik"><i class="fa-solid fa-mug-hot"></i> Ichimliklar</button>
+    </div>
+    <div class="grid" id="menuGrid"></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="tag"><i class="fa-solid fa-award"></i> Nega aynan biz?</span>
+      <h2>Ta'm — bizning <span class="grad-text">nomimiz</span></h2>
+      <p>Kartaning ustiga olib boring yoki bosing.</p>
+    </div>
+    <div class="flip-grid">
+      <div class="flip reveal"><div class="flip-inner">
+        <div class="face front"><i class="fa-solid fa-fire-burner"></i><h3>Loy tandir</h3><small>An'anaviy usul</small></div>
+        <div class="face back"><i class="fa-solid fa-fire"></i><p>Somsa faqat an'anaviy loy tandirda pishadi — shuning uchun qarsildoq va xushbo'y.</p></div>
+      </div></div>
+      <div class="flip reveal"><div class="flip-inner">
+        <div class="face front"><i class="fa-solid fa-basket-shopping"></i><h3>Yangi mahsulot</h3><small>Har kuni bozordan</small></div>
+        <div class="face back"><i class="fa-solid fa-carrot"></i><p>Go'sht va sabzavotlar har kuni ertalab bozordan yangi holda keltiriladi.</p></div>
+      </div></div>
+      <div class="flip reveal"><div class="flip-inner">
+        <div class="face front"><i class="fa-solid fa-truck-fast"></i><h3>Tez yetkazish</h3><small>30–40 daqiqa</small></div>
+        <div class="face back"><i class="fa-solid fa-stopwatch"></i><p>Buyurtmangiz issiqligicha 30–40 daqiqada eshigingizda bo'ladi.</p></div>
+      </div></div>
+      <div class="flip reveal"><div class="flip-inner">
+        <div class="face front"><i class="fa-solid fa-people-group"></i><h3>Oilaviy muhit</h3><small>Keng va shinam</small></div>
+        <div class="face back"><i class="fa-solid fa-children"></i><p>Keng zal, bolalar uchun qulay joy va samimiy xizmat.</p></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS: 3D karusel -->
+<section class="reviews" id="reviews">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="tag"><i class="fa-solid fa-comments"></i> Mijozlar fikri</span>
+      <h2>Ular allaqachon <span class="grad-text">tatib ko'rishgan</span></h2>
+    </div>
+    <div class="carousel reveal"><div class="ring3d" id="ring3d"></div></div>
+    <div class="car-ctrl">
+      <button id="prev" aria-label="Oldingi"><i class="fa-solid fa-arrow-left"></i></button>
+      <button id="next" aria-label="Keyingi"><i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER -->
+<section class="order" id="order">
+  <div class="wrap">
+    <div class="panel reveal">
+      <h3><i class="fa-solid fa-basket-shopping"></i> Savatingiz</h3>
+      <ul class="cart-list" id="cartList"></ul>
+      <div class="total"><span>Jami:</span><span id="cartTotal" class="grad-text">0 so'm</span></div>
+    </div>
+    <div class="panel reveal">
+      <h3><i class="fa-solid fa-clipboard-list"></i> Buyurtma berish</h3>
+      <form id="orderForm">
+        <div class="field"><i class="fa-solid fa-user"></i><input required name="name" placeholder="Ismingiz"></div>
+        <div class="field"><i class="fa-solid fa-phone"></i><input required name="phone" type="tel" placeholder="+998 __ ___ __ __"></div>
+        <div class="field"><i class="fa-solid fa-route"></i>
+          <select name="type"><option>Yetkazib berish</option><option>Olib ketish</option><option>Joy band qilish</option></select>
+        </div>
+        <div class="field ta"><i class="fa-solid fa-location-dot"></i><textarea name="note" rows="3" placeholder="Manzil yoki izoh"></textarea></div>
+        <button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"></i> Buyurtmani yuborish</button>
+        <div class="msg" id="formMsg"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="padding-top:20px">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="tag"><i class="fa-solid fa-map-location-dot"></i> Aloqa</span>
+      <h2>Bizni <span class="grad-text">toping</span></h2>
+    </div>
+    <div class="contact-grid">
+      <div class="info tilt reveal"><div class="ic"><i class="fa-solid fa-location-dot"></i></div><h3>Manzil</h3><p>Shahar, ko'cha nomi, uy raqami<br>Mo'ljal: ...</p></div>
+      <div class="info tilt reveal"><div class="ic"><i class="fa-regular fa-clock"></i></div><h3>Ish vaqti</h3><p>Har kuni: 07:00 – 22:00<br>Issiq somsa: 07:30 dan</p></div>
+      <div class="info tilt reveal"><div class="ic"><i class="fa-solid fa-headset"></i></div><h3>Telefon</h3><p><a href="tel:+998900000000">+998 90 000 00 00</a><br><a href="#"><i class="fa-brands fa-telegram"></i> @nomdorsomsa</a></p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a href="#" class="logo"><i class="fa-solid fa-fire-flame-curved"></i> Nomdor <span class="grad-text">Somsa</span></a>
+    <p>Tandirdan issiq, yurakdan samimiy.</p>
+    <div class="socials">
+      <a href="#" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+    </div>
+    <small>© <span id="year"></span> Nomdor Somsa. Barcha huquqlar himoyalangan.</small>
+  </div>
+</footer>
+
+<button class="fab" id="fab" aria-label="Savat"><i class="fa-solid fa-cart-shopping"></i><span class="count" id="fabCount">0</span></button>
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ============ 3D SOMSA (Three.js) ============ */
+(function(){
+  const canvas = document.getElementById('somsa3d');
+  const stage = document.getElementById('stage');
+  if (typeof THREE === 'undefined') {
+    canvas.outerHTML = '<svg viewBox="0 0 200 170" style="position:absolute;inset:18%;animation:bob 5s ease-in-out infinite"><use href="#somsa"/></svg>';
+    return;
+  }
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
+  camera.position.set(0, 0, 9);
+
+  // Yorug'lik
+  scene.add(new THREE.AmbientLight(0xffe2c4, 0.55));
+  const key = new THREE.DirectionalLight(0xffd9a8, 1.3); key.position.set(3, 4, 5); scene.add(key);
+  const rim = new THREE.PointLight(0xea6a28, 2.2, 20); rim.position.set(-4, -2, -3); scene.add(rim);
+  const fire = new THREE.PointLight(0xff7a2a, 1.4, 12); fire.position.set(0, -3, 3); scene.add(fire);
+
+  // Xamir teksturasi (kuygan dog'lar bilan)
+  function doughTexture(){
+    const c = document.createElement('canvas'); c.width = c.height = 512;
+    const g = c.getContext('2d');
+    const grd = g.createRadialGradient(256,230,40,256,256,330);
+    grd.addColorStop(0,'#f7c47a'); grd.addColorStop(.6,'#df8b3c'); grd.addColorStop(1,'#a8541c');
+    g.fillStyle = grd; g.fillRect(0,0,512,512);
+    for (let i=0;i<260;i++){
+      const x=Math.random()*512, y=Math.random()*512, r=Math.random()*14+2;
+      const sp=g.createRadialGradient(x,y,0,x,y,r);
+      const dark=Math.random()<.5;
+      sp.addColorStop(0, dark?'rgba(110,50,15,.35)':'rgba(255,225,170,.35)');
+      sp.addColorStop(1,'rgba(0,0,0,0)');
+      g.fillStyle=sp; g.beginPath(); g.arc(x,y,r,0,Math.PI*2); g.fill();
+    }
+    const t = new THREE.CanvasTexture(c);
+    t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(.35,.35);
+    t.encoding = THREE.sRGBEncoding;
+    return t;
+  }
+  const doughMat = new THREE.MeshStandardMaterial({map:doughTexture(), roughness:.62, metalness:.02});
+  const seedDark = new THREE.MeshStandardMaterial({color:0x1d140e, roughness:.4});
+  const seedLight = new THREE.MeshStandardMaterial({color:0xf6e6c4, roughness:.5});
+  const seedGeo = new THREE.SphereGeometry(.045, 10, 8);
+
+  function makeSomsa(){
+    // Burchaklari yumaloq uchburchak
+    const pts = [0,1,2].map(i => { const a = Math.PI/2 + i*2*Math.PI/3; return new THREE.Vector2(Math.cos(a)*1.25, Math.sin(a)*1.25); });
+    const k = .24, s = new THREE.Shape(); let first;
+    pts.forEach((p,i) => {
+      const prev = pts[(i+2)%3], next = pts[(i+1)%3];
+      const a = p.clone().lerp(prev,k), b = p.clone().lerp(next,k);
+      if (i===0){ s.moveTo(a.x,a.y); first=a; } else s.lineTo(a.x,a.y);
+      s.quadraticCurveTo(p.x,p.y,b.x,b.y);
+    });
+    s.lineTo(first.x, first.y);
+    const geo = new THREE.ExtrudeGeometry(s, {depth:.2, bevelEnabled:true, bevelThickness:.42, bevelSize:.3, bevelSegments:12, curveSegments:28});
+    geo.center();
+    // Yumshoq "shishgan" shakl va notekislik
+    const pos = geo.attributes.position, v = new THREE.Vector3();
+    for (let i=0;i<pos.count;i++){
+      v.fromBufferAttribute(pos,i);
+      if (v.z < 0) v.z *= .45;                       // tagi tekisroq
+      else v.z += Math.max(0, .35 - v.length()*.18);  // o'rtasi bo'rtiq
+      v.z += Math.sin(v.x*7.3)*Math.cos(v.y*6.1)*.025;
+      pos.setXYZ(i, v.x, v.y, v.z);
+    }
+    geo.computeVertexNormals();
+    const mesh = new THREE.Mesh(geo, doughMat);
+    const grp = new THREE.Group(); grp.add(mesh);
+    // Kunjut va sedana — sirtga raycast orqali joylashtiriladi
+    mesh.updateMatrixWorld();
+    const ray = new THREE.Raycaster(), down = new THREE.Vector3(0,0,-1), n = new THREE.Vector3();
+    let placed = 0, tries = 0;
+    while (placed < 46 && tries < 400){
+      tries++;
+      let r1=Math.random(), r2=Math.random(); if (r1+r2>1){ r1=1-r1; r2=1-r2; }
+      const p = pts[0].clone().multiplyScalar(1-r1-r2).add(pts[1].clone().multiplyScalar(r1)).add(pts[2].clone().multiplyScalar(r2)).multiplyScalar(.82);
+      ray.set(new THREE.Vector3(p.x,p.y,5), down);
+      const hit = ray.intersectObject(mesh)[0]; if (!hit) continue;
+      const seed = new THREE.Mesh(seedGeo, Math.random()<.6 ? seedDark : seedLight);
+      seed.scale.set(1, .55, .45);
+      n.copy(hit.face.normal);
+      seed.position.copy(hit.point).addScaledVector(n,.012);
+      seed.lookAt(hit.point.clone().add(n));
+      seed.rotateZ(Math.random()*Math.PI);
+      grp.add(seed); placed++;
+    }
+    return grp;
+  }
+
+  const hero = makeSomsa();
+  hero.scale.setScalar(1.25);
+  hero.rotation.x = -.55;
+  scene.add(hero);
+
+  // Atrofida aylanuvchi kichik somsalar
+  const orbiters = [];
+  for (let i=0;i<3;i++){
+    const m = makeSomsa(); m.scale.setScalar(.38);
+    scene.add(m); orbiters.push({m, a:i*2*Math.PI/3, sp:.35+i*.06, r:2.65+i*.15, y:(i-1)*.7});
+  }
+
+  // Bug' zarrachalari
+  function softDot(){
+    const c=document.createElement('canvas'); c.width=c.height=64; const g=c.getContext('2d');
+    const r=g.createRadialGradient(32,32,0,32,32,32); r.addColorStop(0,'rgba(255,240,220,1)'); r.addColorStop(1,'rgba(255,240,220,0)');
+    g.fillStyle=r; g.fillRect(0,0,64,64); return new THREE.CanvasTexture(c);
+  }
+  const N = 70, steamGeo = new THREE.BufferGeometry(), sp = new Float32Array(N*3), life = [];
+  for (let i=0;i<N;i++){ sp[i*3]=(Math.random()-.5)*1.4; sp[i*3+1]=Math.random()*3; sp[i*3+2]=(Math.random()-.5)*.8; life.push(Math.random()*.012+.006); }
+  steamGeo.setAttribute('position', new THREE.BufferAttribute(sp,3));
+  const steam = new THREE.Points(steamGeo, new THREE.PointsMaterial({size:.35, map:softDot(), transparent:true, opacity:.22, depthWrite:false, blending:THREE.AdditiveBlending}));
+  steam.position.y = .6; scene.add(steam);
+
+  // Uchqunlar
+  const E = 120, emb = new Float32Array(E*3);
+  for (let i=0;i<E;i++){ emb[i*3]=(Math.random()-.5)*8; emb[i*3+1]=(Math.random()-.5)*7; emb[i*3+2]=(Math.random()-.5)*4-1; }
+  const embGeo = new THREE.BufferGeometry(); embGeo.setAttribute('position', new THREE.BufferAttribute(emb,3));
+  const embers = new THREE.Points(embGeo, new THREE.PointsMaterial({size:.07, color:0xffa040, map:softDot(), transparent:true, opacity:.8, depthWrite:false, blending:THREE.AdditiveBlending}));
+  scene.add(embers);
+
+  // Sichqoncha bilan parallaks
+  let mx=0, my=0, tx=0, ty=0, dragging=false, lastX=0, spinBoost=0;
+  window.addEventListener('pointermove', e => {
+    mx = (e.clientX/innerWidth - .5)*2; my = (e.clientY/innerHeight - .5)*2;
+    if (dragging){ spinBoost += (e.clientX-lastX)*.004; lastX = e.clientX; }
+  });
+  canvas.addEventListener('pointerdown', e => { dragging=true; lastX=e.clientX; });
+  window.addEventListener('pointerup', () => dragging=false);
+
+  function resize(){
+    const w = stage.clientWidth, h = stage.clientHeight;
+    renderer.setSize(w, h, false); camera.aspect = w/h; camera.updateProjectionMatrix();
+  }
+  new ResizeObserver(resize).observe(stage); resize();
+
+  let visible = true;
+  new IntersectionObserver(([en]) => visible = en.isIntersecting).observe(stage);
+
+  const clock = new THREE.Clock();
+  (function tick(){
+    requestAnimationFrame(tick);
+    if (!visible) return;
+    const t = clock.getElapsedTime(), dt = Math.min(clock.getDelta(), .05);
+    tx += (mx-tx)*.05; ty += (my-ty)*.05;
+    spinBoost *= .95;
+    hero.rotation.z += .006 + spinBoost;
+    hero.rotation.x = -.55 + ty*.25 + Math.sin(t*.8)*.06;
+    hero.rotation.y = tx*.45;
+    hero.position.y = Math.sin(t*1.2)*.12;
+    orbiters.forEach(o => {
+      o.a += o.sp*.012;
+      o.m.position.set(Math.cos(o.a)*o.r, o.y + Math.sin(t+o.a)*.25, Math.sin(o.a)*o.r*.55);
+      o.m.rotation.x += .01; o.m.rotation.y += .014;
+    });
+    const p = steam.geometry.attributes.position;
+    for (let i=0;i<N;i++){
+      let y = p.getY(i) + life[i]; let x = p.getX(i) + Math.sin(t*2+i)*.003;
+      if (y > 3){ y = 0; x = (Math.random()-.5)*1.4; }
+      p.setXY(i, x, y);
+    }
+    p.needsUpdate = true;
+    embers.rotation.y = t*.03;
+    fire.intensity = 1.2 + Math.sin(t*9)*.15 + Math.random()*.15;
+    camera.position.x = tx*.4; camera.position.y = -ty*.3; camera.lookAt(0,0,0);
+    renderer.render(scene, camera);
+  })();
+})();
+
+/* ============ MENYU ============ */
+const items = [
+  {id:1, cat:'somsa', name:"Tandir somsa", desc:"Mol go'shti va dumba, qatlama xamir. Eng mashhurimiz.", price:12000, badge:"Xit"},
+  {id:2, cat:'somsa', name:"Qo'y go'shtli somsa", desc:"Mayda to'g'ralgan qo'y go'shti, piyoz va ziravorlar.", price:14000},
+  {id:3, cat:'somsa', name:"Qovoqli somsa", desc:"Shirin qovoq, piyoz va biroz dumba.", price:9000, badge:"Mavsumiy"},
+  {id:4, cat:'somsa', name:"Ko'katli somsa", desc:"Ismaloq, shivit, ko'k piyoz — yengil va xushbo'y.", price:8000},
+  {id:5, cat:'somsa', name:"Tovuqli somsa", desc:"Tovuq go'shti, piyoz va qora murch.", price:10000},
+  {id:6, cat:'somsa', name:"Kartoshkali somsa", desc:"Yumshoq kartoshka va qovurilgan piyoz.", price:7000},
+  {id:7, cat:'salat', name:"Achchiq-chuchuk", desc:"Pomidor, piyoz va achchiq qalampir.", price:15000, icon:"fa-pepper-hot"},
+  {id:8, cat:'salat', name:"Suzma salat", desc:"Bodring, ko'kat va uy suzmasi.", price:16000, icon:"fa-bowl-food"},
+  {id:9, cat:'ichimlik', name:"Ko'k choy", desc:"Bir choynak issiq ko'k choy.", price:5000, icon:"fa-mug-hot"},
+  {id:10, cat:'ichimlik', name:"Limonli qora choy", desc:"Limon va shakar bilan.", price:6000, icon:"fa-lemon"},
+  {id:11, cat:'ichimlik', name:"Ayron", desc:"Sovuq, yangi tayyorlangan ayron.", price:7000, icon:"fa-glass-water"}
+];
+const fmt = n => n.toLocaleString('en-US').replace(/,/g,' ') + " so'm";
+document.getElementById('menuGrid').innerHTML = items.map(i => `
+  <article class="card tilt reveal" data-cat="${i.cat}">
+    <div class="glare"></div>
+    <div class="card-img"><div class="disc"></div>
+      <div class="obj">${i.cat==='somsa' ? '<svg viewBox="0 0 200 170"><use href="#somsa"/></svg>' : `<i class="fa-solid ${i.icon}"></i>`}</div>
+    </div>
+    <div class="card-body">
+      ${i.badge ? `<span class="badge"><i class="fa-solid fa-crown"></i> ${i.badge}</span>` : ''}
+      <h3>${i.name}</h3>
+      <p>${i.desc}</p>
+      <div class="card-foot">
+        <span class="price">${fmt(i.price)}</span>
+        <button class="add" onclick="addToCart(${i.id})" aria-label="Savatga qo'shish"><i class="fa-solid fa-plus"></i></button>
+      </div>
+    </div>
+  </article>`).join('');
+
+document.querySelectorAll('.filters button').forEach(b => b.onclick = () => {
+  document.querySelectorAll('.filters button').forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.querySelectorAll('.card').forEach(c => {
+    const hide = b.dataset.f !== 'all' && c.dataset.cat !== b.dataset.f;
+    c.classList.toggle('hidden', hide);
+    if (!hide){ c.classList.remove('in'); requestAnimationFrame(() => requestAnimationFrame(() => c.classList.add('in'))); }
+  });
+});
+
+/* ============ 3D TILT ============ */
+const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
+if (fine) document.querySelectorAll('.tilt').forEach(el => {
+  el.addEventListener('mousemove', e => {
+    const r = el.getBoundingClientRect(), x = (e.clientX-r.left)/r.width, y = (e.clientY-r.top)/r.height;
+    el.style.transform = `perspective(900px) rotateX(${(.5-y)*16}deg) rotateY(${(x-.5)*18}deg) translateZ(10px)`;
+    el.style.setProperty('--gx', x*100+'%'); el.style.setProperty('--gy', y*100+'%');
+  });
+  el.addEventListener('mouseleave', () => el.style.transform = '');
+});
+document.querySelectorAll('.flip').forEach(f => f.addEventListener('click', () => f.classList.toggle('on')));
+
+/* ============ SCROLL REVEAL ============ */
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold:.15});
+document.querySelectorAll('.reveal').forEach((el,i) => { el.style.transitionDelay = (i%4)*90 + 'ms'; io.observe(el); });
+// "in" bo'lgach tilt kechikmasligi uchun
+document.addEventListener('transitionend', e => { if (e.target.classList.contains('in')) e.target.style.transitionDelay = '0ms'; });
+
+/* ============ SANAGICH ============ */
+document.querySelectorAll('[data-count]').forEach(el => {
+  const end = +el.dataset.count; let v = 0;
+  const step = () => { v++; el.textContent = v + (end>=15?'+':''); if (v < end) setTimeout(step, 60); };
+  setTimeout(step, 500);
+});
+
+/* ============ 3D KARUSEL ============ */
+const reviews = [
+  ["Tandir somsasi xuddi buvimnikidek! Xamiri yupqa, go'shti sersuv.", "Mijoz 1"],
+  ["Yetkazib berish juda tez, somsa issiq holda keldi.", "Mijoz 2"],
+  ["Toza, shinam joy, xodimlar xushmuomala. Oila bilan nonushta uchun ajoyib.", "Mijoz 3"],
+  ["Qovoqli somsani albatta sinab ko'ring — shirin va xushbo'y.", "Mijoz 4"],
+  ["Narxi hamyonbop, porsiyasi to'yimli. Har hafta kelamiz.", "Mijoz 5"],
+  ["Choy va somsa — eng yaxshi kombinatsiya. Tavsiya qilaman!", "Mijoz 6"]
+];
+const ring = document.getElementById('ring3d');
+ring.innerHTML = reviews.map(([t,w]) => `
+  <div class="review"><div class="q"><i class="fa-solid fa-quote-left"></i></div><p>${t}</p>
+    <div class="who"><div class="ava"><i class="fa-solid fa-user"></i></div><div><b>${w}</b><div class="stars">${'<i class="fa-solid fa-star"></i>'.repeat(5)}</div></div></div>
+  </div>`).join('');
+const cards = ring.children, step = 360/cards.length;
+let angle = 0, timer;
+function layoutRing(){
+  const w = Math.min(300, innerWidth-80);
+  ring.style.width = w+'px'; ring.style.marginLeft = -w/2+'px';
+  const rad = Math.round((w/2) / Math.tan(Math.PI/cards.length)) + 30;
+  [...cards].forEach((c,i) => c.style.transform = `rotateY(${i*step}deg) translateZ(${rad}px)`);
+  ring.style.transform = `translateZ(${-rad}px) rotateY(${angle}deg)`;
+  ring.dataset.rad = rad;
+}
+function turn(d){ angle += d*step; ring.style.transform = `translateZ(${-ring.dataset.rad}px) rotateY(${angle}deg)`; }
+function auto(){ clearInterval(timer); timer = setInterval(() => turn(-1), 3800); }
+document.getElementById('next').onclick = () => { turn(-1); auto(); };
+document.getElementById('prev').onclick = () => { turn(1); auto(); };
+addEventListener('resize', layoutRing); layoutRing(); auto();
+
+/* ============ SAVAT ============ */
+const cart = {};
+function addToCart(id){
+  cart[id] = (cart[id]||0) + 1; renderCart();
+  toast(`<i class="fa-solid fa-circle-check"></i> ${items.find(i=>i.id===id).name} savatga qo'shildi`);
+  const f = document.getElementById('fab'); f.classList.remove('bump'); void f.offsetWidth; f.classList.add('bump');
+}
+function changeQty(id,d){ cart[id] += d; if (cart[id] <= 0) delete cart[id]; renderCart(); }
+function renderCart(){
+  const list = document.getElementById('cartList'), ids = Object.keys(cart);
+  let total = 0, count = 0;
+  if (!ids.length) list.innerHTML = `<li class="empty"><i class="fa-solid fa-basket-shopping"></i>Savat bo'sh — menyudan tanlang</li>`;
+  else list.innerHTML = ids.map(id => {
+    const it = items.find(i => i.id == id), sum = it.price*cart[id]; total += sum; count += cart[id];
+    return `<li><span>${it.name}</span><span class="qty">
+      <button onclick="changeQty(${id},-1)" aria-label="Kamaytirish"><i class="fa-solid fa-minus"></i></button>${cart[id]}
+      <button onclick="changeQty(${id},1)" aria-label="Ko'paytirish"><i class="fa-solid fa-plus"></i></button>
+      <b style="min-width:92px;text-align:right">${fmt(sum)}</b></span></li>`;
+  }).join('');
+  document.getElementById('cartTotal').textContent = fmt(total);
+  document.getElementById('fabCount').textContent = count;
+}
+renderCart();
+document.getElementById('fab').onclick = () => document.getElementById('order').scrollIntoView({behavior:'smooth'});
+
+let tt;
+function toast(h){ const el = document.getElementById('toast'); el.innerHTML = h; el.classList.add('show'); clearTimeout(tt); tt = setTimeout(() => el.classList.remove('show'), 1900); }
+
+document.getElementById('orderForm').onsubmit = e => {
+  e.preventDefault();
+  const m = document.getElementById('formMsg');
+  m.style.display = 'flex';
+  m.innerHTML = `<i class="fa-solid fa-circle-check"></i> Rahmat, ${e.target.name.value.trim()}! Buyurtmangiz qabul qilindi. Tez orada bog'lanamiz.`;
+  e.target.reset();
+};
+
+/* ============ NAV ============ */
+document.getElementById('burger').onclick = () => document.getElementById('menuNav').classList.toggle('open');
+document.querySelectorAll('#menuNav a').forEach(a => a.onclick = () => document.getElementById('menuNav').classList.remove('open'));
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
